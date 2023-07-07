@@ -14,6 +14,7 @@ import { Input } from '@/Components/ui/input'
 import { router } from '@inertiajs/react'
 import { toast } from 'react-toastify';
 import AlertModal from '@/Components/Modals/AlertModal'
+import ApiAlert from './ApiAlert'
 
 
 const formSchema = zod.object({
@@ -88,6 +89,8 @@ const SettingsForm:FC<SettingsFormProps> = ({store}) => {
                     <Button disabled={loading} className='ml-auto'>Save Changes</Button>
                 </form>
             </Form>
+            <Separator />
+            <ApiAlert title='test'  description='test' variant='admin' />
             <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={onDelete} loading={loading} />
         </>
     )

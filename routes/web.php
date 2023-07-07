@@ -31,7 +31,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
 
     Route::prefix('dashboard')->name('dashboard.')->group(function(){
         Route::get('/{id?}',[DashboardController::class,'index'])->name('index');
-        Route::get('/{id}/settings',[DashboardController::class,'settings'])->name('settings');
+        Route::get('/{id?}/settings',[DashboardController::class,'settings'])->name('settings');
     });
 
     Route::prefix('stores')->name('stores.')->group(function(){

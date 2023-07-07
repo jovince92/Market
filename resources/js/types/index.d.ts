@@ -12,8 +12,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
         my_stores:IStore[];
     };
-
-
+    current_store:IStore;
 };
 
 export interface IStore{

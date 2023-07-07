@@ -15,12 +15,12 @@ interface PopoverTriggerProps extends ComponentPropsWithRef<typeof PopoverTrigge
 
 
 const StoreSwitcher:FC<PopoverTriggerProps> = ({className,...props}) => {
-    
+    const {current_store} = usePage<PageProps>().props
     const {isOpen,onClose,onOpen} = useStoreModal();
     const [open,setOpen] = useState<boolean>(false);
     const {my_stores} = usePage<PageProps>().props.auth;
-    const param = route().params as {id:string}
-    const currentStore:IStore|undefined = my_stores.find(({id})=>id===parseInt(param.id));
+    
+    const currentStore:IStore|undefined =current_store;
     const onStoreSelect = (id:number) =>{
         setOpen(false);
         router.get(route('admin.dashboard.index',{id}))

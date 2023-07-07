@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Modal from './Modal'
 import useStoreModal from '@/Hooks/useStoreModal'
 import * as zod from 'zod'
@@ -36,6 +36,10 @@ const StoreModal:FC = () => {
             onFinish:()=>setLoading(false)
         });
     }
+
+    useEffect(()=>{
+        if(isOpen) form.setValue('name',"");
+    },[isOpen])
 
     return (
         <Modal title='New Store' description='Create a new store' isOpen={isOpen} onClose={onClose}>

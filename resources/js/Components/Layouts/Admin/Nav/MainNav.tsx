@@ -1,10 +1,29 @@
 import { cn } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
+import { PageProps } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import React, { FC, HTMLAttributes } from 'react'
 
-
+type MainNavRouteItems = {
+    href:string;
+    label:string;
+    active?:boolean;
+}
 
 const MainNav:FC<HTMLAttributes<HTMLElement>>= ({className,...props}) => {
+    
+    const {current_store} = usePage<PageProps>().props
+    const navRoutes:MainNavRouteItems[]=[
+        {
+            href:route('admin.dashboard.index',{id:current_store.id}),
+            label:'Home',
+            active: route().current('admin.dashboard.index',{id:current_store.id})
+        },
+        {
+            href:route('admin.dashboard.settings',{id:current_store.id}),
+            label:'Settings',
+            active: route().current('admin.dashboard.settings',{id:current_store.id})
+        },
+    ] ;
     return (
         <nav className={cn('flex items-center space-x-3.5 lg:space-x-5',className)}>
             {
@@ -22,15 +41,3 @@ const MainNav:FC<HTMLAttributes<HTMLElement>>= ({className,...props}) => {
 
 export default MainNav
 
-export const navRoutes=[
-    {
-        //@ts-ignore
-        href:route('admin.dashboard.settings',{id:route().params['id'] as string}),
-        label:'Settings',
-        active: route().current('admin.dashboard.settings')
-    }
-] as {
-    href:string,
-    label:string;
-    active?:boolean;
-}[];

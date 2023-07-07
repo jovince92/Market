@@ -17,11 +17,14 @@ class DashboardController extends Controller
         }
 
         $store=Store::findOrFail($id);
-        return Inertia::render('Admin/Dashboard',['store'=>$store]);
+
+        Inertia::share('current_store', $store);
+        return Inertia::render('Admin/Dashboard');
     }
 
-    public function settings($id){
+    public function settings($id=0){
         $store=Store::findOrFail($id);
-        return Inertia::render('Admin/Settings',['store'=>$store]);
+        Inertia::share('current_store', $store);
+        return Inertia::render('Admin/Settings');
     }
 }
