@@ -70,9 +70,23 @@
  
 @layer base {
   * {
-    @apply !border-border;
+    @apply border-border;
   }
   body {
-    @apply !bg-background !text-foreground;
+    @apply bg-background text-foreground;
   }
+}
+
+
+#nprogress .bar {
+  @apply !shadow-md !shadow-sky-600/80  !rounded-r-sm min-h-[0.25rem]
+}
+
+
+#nprogress .spinner {
+  @apply !left-[47.5%] !top-[40%] !min-h-[10rem] !min-w-[10rem] 
+}
+
+#nprogress .spinner-icon {
+  @apply  !min-h-[3.5rem] !min-w-[3.5rem] !border-[0.3rem]  
 }

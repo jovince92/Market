@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardCOntroller;
+use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SocialiteController;
@@ -25,8 +27,17 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
-    Route::get('/', function () {
-        return Inertia::render('Admin/SetUpPage');
+    Route::get('/', [StoreController::class,'index'])->name('index');
+
+    Route::prefix('dashboard')->name('dashboard.')->group(function(){
+        Route::get('/{id?}',[DashboardController::class,'index'])->name('index');
+        Route::get('/{id}/settings',[DashboardController::class,'settings'])->name('settings');
+    });
+
+    Route::prefix('stores')->name('stores.')->group(function(){
+        Route::post('/store',[StoreController::class,'store'])->name('store');
+        Route::post('/update',[StoreController::class,'update'])->name('update');
+        Route::post('/delete',[StoreController::class,'destroy'])->name('delete');
     });
 });
 
