@@ -90,7 +90,7 @@ const SettingsForm:FC<SettingsFormProps> = ({store}) => {
                 </form>
             </Form>
             <Separator />
-            <ApiAlert title='test'  description='test' variant='admin' />
+            <ApiAlert title='VITE_PUBLIC_API_URL'  description={route('api.store',{id})} variant='public' />
             <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={onDelete} loading={loading} />
         </>
     )

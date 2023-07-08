@@ -1,4 +1,9 @@
+Options Indexes FollowSymLinks
+AllowOverride All
+Require all granted
 <IfModule mod_rewrite.c>
+
+
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
@@ -19,3 +24,5 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+

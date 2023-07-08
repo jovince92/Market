@@ -22,3 +22,18 @@ export interface IStore{
     created_at:string;
     updated_at:string;
 }
+
+export interface IBillboard{
+    id:number;
+    label:string;
+    store:IStore;
+    image:IImage;
+    created_at:string;
+    updated_at:string;
+}
+
+export interface IImage{
+    id:number;
+    name:string;
+    location:string;
+}

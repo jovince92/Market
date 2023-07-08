@@ -23,6 +23,11 @@ const MainNav:FC<HTMLAttributes<HTMLElement>>= ({className,...props}) => {
             label:'Settings',
             active: route().current('admin.dashboard.settings',{id:current_store.id})
         },
+        {
+            href:route('admin.billboards.index',{id:current_store.id}),
+            label:'Billboards',
+            active: route().current('admin.billboards.index',{id:current_store.id})
+        },  
     ] ;
     return (
         <nav className={cn('flex items-center space-x-3.5 lg:space-x-5',className)}>

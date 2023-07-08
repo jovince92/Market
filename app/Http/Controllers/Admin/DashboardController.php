@@ -16,15 +16,17 @@ class DashboardController extends Controller
             return redirect(route('admin.index'));
         }
 
-        $store=Store::findOrFail($id);
+        $store=Store::where('user_id',Auth::id())->where('id',$id)->firstOrFail();
 
         Inertia::share('current_store', $store);
         return Inertia::render('Admin/Dashboard');
     }
 
     public function settings($id=0){
-        $store=Store::findOrFail($id);
+        $store=Store::where('user_id',Auth::id())->where('id',$id)->firstOrFail();
         Inertia::share('current_store', $store);
         return Inertia::render('Admin/Settings');
     }
+
+    
 }
