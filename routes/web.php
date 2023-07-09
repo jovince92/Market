@@ -52,9 +52,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
         
         Route::get('/',[CategoryController::class,'index'])->name('index');
         Route::get('/create',[CategoryController::class,'create'])->name('create');
-        Route::get('/store',[CategoryController::class,'store'])->name('store');
-        Route::get('/update',[CategoryController::class,'update'])->name('update');
-        Route::get('/destroy',[CategoryController::class,'destroy'])->name('delete');
+        Route::get('/{category_id}',[CategoryController::class,'show'])->name('show');
+        Route::post('/store',[CategoryController::class,'store'])->name('store');
+        Route::post('/update',[CategoryController::class,'update'])->name('update');
+        Route::post('/destroy',[CategoryController::class,'destroy'])->name('delete');
     });
 
     Route::prefix('stores')->name('stores.')->group(function(){

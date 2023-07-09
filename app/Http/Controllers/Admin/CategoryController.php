@@ -37,17 +37,29 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,$store_id)
     {
-        //
+        Store::where('user_id',Auth::id())->where('id',$request->store_id)->firstOrFail();
+        Category::create([
+            'billboard_id'=>$request->billboard_id,
+            'store_id'=>$request->store_id,
+            'name'=>$request->name
+        ]);
+
+        return redirect(route('admin.categories.index',['store_id'=>$request->store_id]));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($store_id=0,$category_id)
     {
-        //
+        $store=Store::where('user_id',Auth::id())->where('id',$store_id)->firstOrFail();
+        $category=Category::where('store_id',$store_id)->where('id',$category_id)->firstOrFail();
+        Inertia::share('current_store', $store);
+        return Inertia::render('Admin/CategoryPages/CategoryEdit',[
+            'category'=>$category
+        ]);
     }
 
     /**
@@ -63,14 +75,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Store::where('user_id',Auth::id())->where('id',$request->store_id)->firstOrFail();
+        Category::findOrFail($request->id)->update([
+            'billboard_id'=>$request->billboard_id,
+            'store_id'=>$request->store_id,
+            'name'=>$request->name
+        ]);
+
+        return redirect(route('admin.categories.index',['store_id'=>$request->store_id]));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request ,$store_id)
     {
-        //
+        Store::where('user_id',Auth::id())->where('id',$request->store_id)->firstOrFail();
+        $category=Category::findOrFail($request->id);
+        $category->delete();
     }
 }

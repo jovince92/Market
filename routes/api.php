@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Billboard;
+use App\Models\Category;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,18 @@ Route::name('api.')->group(function(){
         }
         return Billboard::where('store_id',$request->store_id)->where('id',$request->billboard_id)->first();
     })->name('billboards');
+
+    Route::get('/categories',function(Request $request){
+        if(!$request->category_id){
+            return Category::where('store_id',$request->store_id)
+            ->with(['store'=>function($q){
+                $q->without(['billboards']);
+            }])->get();
+        }
+        return Category::where('store_id',$request->store_id)->with(['store'=>function($q){
+            $q->without(['billboards']);
+        }])->where('id',$request->category_id)->first();
+    })->name('categories');
 
     
 });
