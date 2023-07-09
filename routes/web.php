@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BillboardController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardCOntroller;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\StoreController;
@@ -42,12 +43,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
         Route::get('/',[BillboardController::class,'index'])->name('index');
         Route::get('/create',[BillboardController::class,'create'])->name('create');
         Route::get('/{billboard_id}',[BillboardController::class,'show'])->name('show');
-        
-        
-        
-        
         Route::post('/store',[BillboardController::class,'store'])->name('store');
         Route::post('/update',[BillboardController::class,'update'])->name('update');
+        Route::post('/delete',[BillboardController::class,'destroy'])->name('delete');
+    });
+
+    Route::prefix('{store_id?}/categories')->name('categories.')->group(function(){
+        
+        Route::get('/',[CategoryController::class,'index'])->name('index');
+        Route::get('/create',[CategoryController::class,'create'])->name('create');
+        Route::get('/store',[CategoryController::class,'store'])->name('store');
+        Route::get('/update',[CategoryController::class,'update'])->name('update');
+        Route::get('/destroy',[CategoryController::class,'destroy'])->name('delete');
     });
 
     Route::prefix('stores')->name('stores.')->group(function(){

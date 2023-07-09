@@ -7,6 +7,7 @@ import { router, usePage } from '@inertiajs/react'
 import { Plus } from 'lucide-react'
 import React, { FC, useMemo } from 'react'
 import { BillboardColumn, columns } from './BillboardColumns'
+import ApiList from '@/Components/ApiList'
 
 interface BillboardClientProps{
     billboards:IBillboard[]
@@ -27,6 +28,14 @@ const BillboardClient:FC<BillboardClientProps> = ({billboards}) => {
             </div>
             <Separator />
             <DataTable searchKey='label' columns={columns} data={billboardData} />
+            <Heading title='API' description='API calls for this Billboard...' />
+            <Separator />
+            <ApiList entityName={route('api.billboards',{
+                store_id:current_store.id
+                })} />
+            <ApiList entityName={route('api.billboards',{
+                store_id:current_store.id
+                })} entityId='billboard_id' />
         </>
     )
 }

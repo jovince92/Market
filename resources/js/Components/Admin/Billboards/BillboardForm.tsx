@@ -15,6 +15,7 @@ import { router, usePage } from '@inertiajs/react'
 import { toast } from 'react-toastify';
 import AlertModal from '@/Components/Modals/AlertModal'
 import ImageUpload from '../ImageUpload'
+import axios from 'axios'
 
 
 const formSchema = zod.object({
@@ -71,9 +72,21 @@ const BillboardForm:FC<BillboardFormProps> = ({billboard,images}) => {
         });
     },[billboard?.id,current_store.id]);
 
-    const onDelete = () =>{
-    
-    }
+    const onDelete = useCallback(async() =>{
+        
+        if(!billboard)return ;
+        try {
+            setLoading(true);
+            await axios.post(route('admin.billboards.delete',{store_id:current_store.id}),{id:billboard.id});
+            toast.info('Billboard Deleted!');
+            router.get(route('admin.billboards.index',{store_id:current_store.id}))
+        } catch (e:any) {
+            toast.error('Something Went Wrong...');
+            console.log(e);
+        } finally{
+            setLoading(false)
+        }
+    },[billboard?.id,current_store.id])
 
     const handleUpload= (image:File) =>{
         if(!image)return null;
@@ -88,7 +101,7 @@ const BillboardForm:FC<BillboardFormProps> = ({billboard,images}) => {
         });
     }
 
-    const handleDelete = (id:number) =>{
+    const handleImageDelete = (id:number) =>{
         router.post(route('admin.images.delete'),{id},{
             onStart:()=>setLoading(true),
             onSuccess:()=>toast.info('Image Deleted...'),
@@ -127,7 +140,7 @@ const BillboardForm:FC<BillboardFormProps> = ({billboard,images}) => {
                             <FormControl>
                                 <ImageUpload handleUpload={handleUpload} disabled={loading} images={images} image={field.value} onChange={(imageId)=>field.onChange(field.value===imageId?0:imageId)} onRemove={(id:number)=>{
                                     field.onChange(0);
-                                    handleDelete(id);
+                                    handleImageDelete(id);
                                     }}/>
                             </FormControl>
                             <FormMessage />
@@ -148,7 +161,7 @@ const BillboardForm:FC<BillboardFormProps> = ({billboard,images}) => {
                 </form>
             </Form>
             <Separator />
-            <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={onDelete} loading={loading} />
+            <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={onDelete} loading={loading} title="Delete this Billboard?'" description="This billboard will be deleted along with all of it's categories" />
         </>
     )
 }

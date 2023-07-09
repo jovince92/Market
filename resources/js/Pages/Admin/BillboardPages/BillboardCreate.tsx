@@ -10,14 +10,14 @@ interface BillboardCreateProps{
 
 const BillboardCreate:FC<BillboardCreateProps> = ({images}) => {
         return (
-        <AdminLayout>
-            <Head title='Create Billboard' />
-            <div className="flex flex-col">
-                <div className='flex-1 space-y-3.5 p-7 pt-5' >
-                    <BillboardForm images={images}/>
+            <AdminLayout>
+                <Head title='Create Billboard' />
+                <div className="flex flex-col">
+                    <div className='flex-1 space-y-3.5 p-7 pt-5' >
+                        <BillboardForm images={images}/>
+                    </div>
                 </div>
-            </div>
-        </AdminLayout>
+            </AdminLayout>
     )
 }
 

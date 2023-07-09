@@ -19,6 +19,8 @@ export interface IStore{
     id:number;
     name:string;
     user:User;
+    categories:ICategory[];
+    billboards:IBillboard[];
     created_at:string;
     updated_at:string;
 }
@@ -28,6 +30,7 @@ export interface IBillboard{
     label:string;
     store:IStore;
     image:IImage;
+    categories:ICategory[];
     created_at:string;
     updated_at:string;
 }
@@ -36,4 +39,18 @@ export interface IImage{
     id:number;
     name:string;
     location:string;
+    created_at:string;
+    updated_at:string;
+}
+
+
+export interface ICategory{
+    id:number;
+    name:string;
+    store:IStore;
+    billboard:IBillboard;
+    store_id:number;
+    billboard_id:number;
+    created_at:string;
+    updated_at:string;
 }

@@ -91,8 +91,11 @@ class BillboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request ,$store_id)
     {
-        //
+        Store::where('user_id',Auth::id())->where('id',$request->store_id)->firstOrFail();
+        $billboard=Billboard::findOrFail($request->id);
+        $billboard->delete();
+        //return redirect(route('admin.billboards.index',['store_id'=>$request->store_id]));
     }
 }

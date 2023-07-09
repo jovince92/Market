@@ -1,8 +1,8 @@
 import BillboardClient from '@/Components/Admin/Billboards/BillboardClient';
 import AdminLayout from '@/Components/Layouts/Admin/AdminLayout';
-import { IBillboard, PageProps } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
-import React, { FC } from 'react'
+import { IBillboard } from '@/types';
+import { Head } from '@inertiajs/react';
+import  { FC } from 'react'
 import { format, parseISO } from 'date-fns'
 
 interface BillboardIndexProps{
@@ -10,7 +10,6 @@ interface BillboardIndexProps{
 }
 
 const BillboardIndex:FC<BillboardIndexProps> = ({billboards}) => {
-    const {current_store} = usePage<PageProps>().props;
     return (
         <AdminLayout>
             <Head title='Billboards' />

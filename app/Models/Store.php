@@ -9,7 +9,7 @@ class Store extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    protected $with=['user'];
+    protected $with=['user','billboards'];
     public function user(){
         return $this->belongsTo(User::class);
     }
