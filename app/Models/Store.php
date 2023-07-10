@@ -16,4 +16,8 @@ class Store extends Model
     public function billboards(){
         return $this->hasMany(Billboard::class);
     }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
