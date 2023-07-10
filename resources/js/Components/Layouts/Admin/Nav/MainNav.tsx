@@ -33,6 +33,11 @@ const MainNav:FC<HTMLAttributes<HTMLElement>>= ({className,...props}) => {
             label:'Categories',
             active: route().current()?.includes('categories')
         },
+        {
+            href:route('admin.variants.index',{id:current_store.id}),
+            label:'Variants',
+            active: route().current()?.includes('variants')
+        },
     ] ;
     return (
         <nav className={cn('flex items-center space-x-3.5 lg:space-x-5',className)}>

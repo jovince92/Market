@@ -22,6 +22,7 @@ export const columns: ColumnDef<BillboardColumn>[] = [
         header: "Date",
     },
     {
+        header: "Actions",
         id:"actions",
         cell:({row})=><BillboardCellActions data={row.original} />
     }

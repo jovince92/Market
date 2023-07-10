@@ -54,3 +54,14 @@ export interface ICategory{
     created_at:string;
     updated_at:string;
 }
+
+
+export interface IVariant{
+    id:number;
+    store_id:number;
+    name:string;
+    value:string;
+    store:IStore;
+    created_at:string;
+    updated_at:string;
+}

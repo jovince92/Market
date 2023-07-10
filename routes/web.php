@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardCOntroller;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SocialiteController;
@@ -56,6 +57,16 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
         Route::post('/store',[CategoryController::class,'store'])->name('store');
         Route::post('/update',[CategoryController::class,'update'])->name('update');
         Route::post('/destroy',[CategoryController::class,'destroy'])->name('delete');
+    });
+
+    Route::prefix('{store_id?}/variants')->name('variants.')->group(function(){
+        
+        Route::get('/',[VariantController::class,'index'])->name('index');
+        Route::get('/create',[VariantController::class,'create'])->name('create');
+        Route::get('/{category_id}',[VariantController::class,'show'])->name('show');
+        Route::post('/store',[VariantController::class,'store'])->name('store');
+        Route::post('/update',[VariantController::class,'update'])->name('update');
+        Route::post('/destroy',[VariantController::class,'destroy'])->name('delete');
     });
 
     Route::prefix('stores')->name('stores.')->group(function(){

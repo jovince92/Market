@@ -30,6 +30,7 @@ export const columns: ColumnDef<CategoryColumn>[] = [
         header: "Date",
     },
     {
+        header: "Actions",
         id:"actions",
         cell:({row})=><CategoryCellActions data={row.original} />
     }

@@ -3,6 +3,7 @@
 use App\Models\Billboard;
 use App\Models\Category;
 use App\Models\Store;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,19 @@ Route::name('api.')->group(function(){
             $q->without(['billboards']);
         }])->where('id',$request->category_id)->first();
     })->name('categories');
+
+
+    Route::get('/variants',function(Request $request){
+        if(!$request->variant_id){
+            return Variant::where('store_id',$request->store_id)
+            ->with(['store'=>function($q){
+                $q->without(['billboards']);
+            }])->get();
+        }
+        return Variant::where('store_id',$request->store_id)->with(['store'=>function($q){
+            $q->without(['billboards']);
+        }])->where('id',$request->variant_id)->first();
+    })->name('variants');
 
     
 });
