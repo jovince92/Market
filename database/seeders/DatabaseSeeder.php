@@ -8,8 +8,10 @@ use App\Models\Billboard;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Store;
+use App\Models\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,21 +28,13 @@ class DatabaseSeeder extends Seeder
         // ]);
         $faker = Factory::create('en_US');
 
-        // for($i=0;$i<36;$i++){
-        //     Billboard::create([
-        //         'store_id'=>Store::all()->random()->id,
-        //         'label'=>$faker->company(),
-        //         'image_id'=>Image::all()->random()->id,
-        //     ]);
-        // }
-
-
-        for($i=0;$i<120;$i++){
-            Category::create([
-                'store_id'=>Store::all()->random()->id,
-                'billboard_id'=>Billboard::all()->random()->id,
-                'name'=>$faker->sentence(2),
-            ]);
-        }
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin',
+            //password = admin
+            'password'=>Hash::make('admin'),
+            'level'=>1
+        ]);
+        
     }
 }

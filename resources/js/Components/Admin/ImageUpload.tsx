@@ -1,5 +1,5 @@
 import { IImage } from '@/types';
-import React, { ChangeEventHandler, FC,  MouseEvent,   useMemo,   useState } from 'react'
+import React, { ChangeEventHandler, FC,  MouseEvent,   useEffect,   useMemo,   useState } from 'react'
 import { Button } from '../ui/button';
 import { Check, ImagePlus, Trash } from 'lucide-react';
 import { router } from '@inertiajs/react';
@@ -11,10 +11,13 @@ interface ImageUploadProps  {
     disabled?:boolean;
     onChange:(imageId:number)=>void;
     handleUpload:(image:File)=>void;
-    onRemove:(id:number)=>void
+    onRemove:(id:number)=>void;
+    className?:string;
+    text?:string;
 }
 
-const ImageUpload:FC<ImageUploadProps> = ({image,handleUpload,images=[],disabled,onChange,onRemove}) => {    const [previews,setPreviews] = useState<IImage[]>(images);
+const ImageUpload:FC<ImageUploadProps> = ({image,handleUpload,images=[],disabled,onChange,onRemove,className,text='Upload an Image...'}) => {   
+    
 
     const onFileSelect:ChangeEventHandler<HTMLInputElement> = (e) =>{
         if(!e.target.files||e.target.files?.length<1) return null;
@@ -25,12 +28,13 @@ const ImageUpload:FC<ImageUploadProps> = ({image,handleUpload,images=[],disabled
         e.stopPropagation();
         onRemove(id);
     }
+    
 
     return (
         <>
-            <div className='flex mb-3.5 items-center gap-3.5 '>
+            <div className={cn('flex mb-3.5 items-center gap-3.5 ',className)}>
                 {
-                    previews&&previews.map(({id,name,location})=>(
+                    images&&images.map(({id,name,location})=>(
                         <div key={id} className={cn('relative w-52 h-52 rounded-md overflow-hidden scale-100',
                             image===id&&'ring-2 ring-sky-400 shadow-lg shadow-sky-400 transition duration-500 scale-105'
                             )}>
@@ -47,7 +51,7 @@ const ImageUpload:FC<ImageUploadProps> = ({image,handleUpload,images=[],disabled
                 <Button disabled={disabled} className='p-0' type='button' variant='outline'>
                     <label className=' cursor-pointer w-full h-full mx-2.5 py-1.5 flex items-center' htmlFor="image_upload">
                         <ImagePlus className='h-3.5 w-3.5 mr-1.5' />
-                        Upload an Image...
+                        {text}
                     </label>
                     <input accept=".png,.jpeg,.jpg,.webp," onChange={onFileSelect} id='image_upload' type="file" className='hidden'  />
                     

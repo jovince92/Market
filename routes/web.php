@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BillboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardCOntroller;
 use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -63,10 +64,20 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
         
         Route::get('/',[VariantController::class,'index'])->name('index');
         Route::get('/create',[VariantController::class,'create'])->name('create');
-        Route::get('/{category_id}',[VariantController::class,'show'])->name('show');
+        Route::get('/{variant_id}',[VariantController::class,'show'])->name('show');
         Route::post('/store',[VariantController::class,'store'])->name('store');
         Route::post('/update',[VariantController::class,'update'])->name('update');
         Route::post('/destroy',[VariantController::class,'destroy'])->name('delete');
+    });
+
+    Route::prefix('{store_id?}/products')->name('products.')->group(function(){
+        
+        Route::get('/',[ProductController::class,'index'])->name('index');
+        Route::get('/create',[ProductController::class,'create'])->name('create');
+        Route::get('/{product_id}',[ProductController::class,'show'])->name('show');
+        Route::post('/store',[ProductController::class,'store'])->name('store');
+        Route::post('/update',[ProductController::class,'update'])->name('update');
+        Route::post('/destroy',[ProductController::class,'destroy'])->name('delete');
     });
 
     Route::prefix('stores')->name('stores.')->group(function(){

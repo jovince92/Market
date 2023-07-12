@@ -20,4 +20,12 @@ class Store extends Model
     public function products(){
         return $this->hasMany(Product::class);
     }
+
+    public function categories(){
+        return $this->hasMany(Category::class);
+    }
+
+    public function variants(){
+        return $this->hasMany(Variant::class);
+    }
 }

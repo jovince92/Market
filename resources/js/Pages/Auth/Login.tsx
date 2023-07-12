@@ -51,7 +51,7 @@ const Login:FC = () => {
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input disabled={processing} id="email" autoFocus autoComplete='off' type="email" placeholder="m@example.com" value={data.email} onChange={e=>setData('email',e.target.value)} />
+                            <Input disabled={processing} id="email" autoFocus autoComplete='off' type="text" placeholder="m@example.com" value={data.email} onChange={e=>setData('email',e.target.value)} />
                             {errors.email&&<span className='-mt-4 text-xs text-red-500 leading-10'>{errors.email}</span>}
                         </div>
                         <div className="grid gap-2">

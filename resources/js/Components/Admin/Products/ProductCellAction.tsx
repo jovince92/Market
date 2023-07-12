@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react'
-import { VariantColumn } from './VariantColumn'
+import { ProductColumn } from './ProductColumn'
 import { router, usePage } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import { toast } from 'react-toastify';
@@ -8,11 +8,11 @@ import { Button } from '@/Components/ui/button';
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import AlertModal from '@/Components/Modals/AlertModal';
 
-interface VariantCellActionsProps{
-    data:VariantColumn
+interface ProductCellActionProps{
+    data:ProductColumn;
 }
 
-const VariantCellActions:FC<VariantCellActionsProps> = ({data}) => {
+const ProductCellAction:FC<ProductCellActionProps> = ({data}) => {
     const [loading,setLoading] = useState(false);
     const [open,setOpen] = useState(false);
     const {current_store} = usePage<PageProps>().props;
@@ -22,9 +22,9 @@ const VariantCellActions:FC<VariantCellActionsProps> = ({data}) => {
     },[data.id]);
 
     const handleDelete = useCallback(() =>{
-        router.post(route('admin.variants.delete',{store_id:current_store.id}),{id:data.id},{
+        router.post(route('admin.products.delete',{store_id:current_store.id}),{id:data.id},{
             onStart:()=>setLoading(true),
-            onSuccess:()=>toast.info('Variant Deleted!'),
+            onSuccess:()=>toast.info('Product Deleted!'),
             onError:(e:any)=>{
                 toast.error('Something Went Wrong...');
                 console.log(e);
@@ -44,7 +44,7 @@ const VariantCellActions:FC<VariantCellActionsProps> = ({data}) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={()=>router.get(route('admin.variants.show',{store_id:current_store.id,variant_id:data.id}))}>
+                    <DropdownMenuItem onClick={()=>router.get(route('admin.products.show',{store_id:current_store.id,product_id:data.id}))}>
                         <Edit className='mr-1.5 h-3.5 w-3.5' /> Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={onCopy}>
@@ -55,9 +55,9 @@ const VariantCellActions:FC<VariantCellActionsProps> = ({data}) => {
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={handleDelete} loading={loading} title="Delete this Variant?'" description="Products in this variant will also be deleted!" />
+            <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={handleDelete} loading={loading} title="Delete this Product?'" description="Make sure there are no orders on this Product!" />
         </>
     )
 }
 
-export default VariantCellActions
+export default ProductCellAction

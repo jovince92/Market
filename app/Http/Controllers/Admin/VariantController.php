@@ -41,7 +41,7 @@ class VariantController extends Controller
     {
         Store::where('user_id',Auth::id())->where('id',$request->store_id)->firstOrFail();
         Variant::create([
-            'value'=>$request->name,
+            'value'=>$request->value,
             'store_id'=>$request->store_id,
             'name'=>$request->name
         ]);
@@ -52,10 +52,10 @@ class VariantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($store_id=0,$category_id)
+    public function show($store_id=0,$variant_id)
     {
         $store=Store::where('user_id',Auth::id())->where('id',$store_id)->firstOrFail();
-        $variant=Variant::where('store_id',$store_id)->where('id',$category_id)->firstOrFail();
+        $variant=Variant::where('store_id',$store_id)->where('id',$variant_id)->firstOrFail();
         Inertia::share('current_store', $store);
         return Inertia::render('Admin/VariantPages/VariantEdit',[
             'variant'=>$variant
@@ -77,7 +77,7 @@ class VariantController extends Controller
     {
         Store::where('user_id',Auth::id())->where('id',$request->store_id)->firstOrFail();
         Variant::findOrFail($request->id)->update([
-            'value'=>$request->name,
+            'value'=>$request->value,
             'store_id'=>$request->store_id,
             'name'=>$request->name
         ]);
